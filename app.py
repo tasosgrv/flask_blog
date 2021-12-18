@@ -1,20 +1,14 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 @app.route('/index')
 @app.route('/')
-def root():
-    return  "<h3>hello flask</h3>"
+@app.route('/<name>')
+def root(name=None):
+    return  render_template('index.html', MyName=name)
     
-@app.route('/hello')
-@app.route('/hello/<name>')
-def helloName(name=None):
-    return f"hello {name}"
 
-@app.route('/id/<int:name>')
-def id(name):
-    return f"id {name}"
 
 if __name__=="__main__":
     app.run(debug=True)
