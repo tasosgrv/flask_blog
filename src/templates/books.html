@@ -10,8 +10,8 @@
     <ul>
     {% for book in mybooks %}
        <li>
-           Τίτλος: {{book.Title}} <br>
-           Συγγραφέας: {{book.Author}} <br>
+           Τίτλος: {{book.Title | title }} <br>
+           Συγγραφέας: {{book.Author | safe }} <br>
            Είδος: {{book.Genre}} <br>
        </li>
     {% endfor %}

@@ -1,32 +1,32 @@
 [
     {
         "Title": "The Lord of the Rings ",
-        "Author": "J.R.R. Tolkien",
+        "Author": "<em>J.R.R. Tolkien</em>",
         "Genre": "Fantasy"
     },
     {
-        "Title": "The Kite Runner",
-        "Author": "Khaled Hosseini",
+        "Title": "the kite runner",
+        "Author": "<em>Khaled Hosseini</em>",
         "Genre": "Novel"
     },
     {
         "Title": "Harry Potter and the Philosopher’s Stone",
-        "Author": "J.K. Rowling",
+        "Author": "<em>J.K. Rowling</em>",
         "Genre": "Fantasy"
     },
     {
-        "Title": "War And Peace",
-        "Author": "Leon Tolstoy",
+        "Title": "war and peace",
+        "Author": "<em>Leon Tolstoy</em>",
         "Genre": "Novel"
     },
     {
         "Title": "1984",
-        "Author": "George Orwell",
+        "Author": "<em>George Orwell</em>",
         "Genre": "Fantasy"
     },
     {
         "Title": "Art of War",
-        "Author": "Sun Tzu",
+        "Author": "<em>Sun Tzu</em>",
         "Genre": "Strategy"
     }
 ]
