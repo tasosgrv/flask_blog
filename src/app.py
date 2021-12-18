@@ -1,4 +1,6 @@
+from abc import abstractmethod
 from flask import Flask, render_template
+import json
 
 app = Flask(__name__)
 
@@ -7,6 +9,13 @@ app = Flask(__name__)
 @app.route('/<name>')
 def root(name=None):
     return  render_template('index.html', MyName=name)
+
+
+@app.route('/books')
+def books():
+    with open("mybooks.json") as json_file:
+        jdict = json.load(json_file)
+    return render_template('books.html', mybooks=jdict)
     
 
 
