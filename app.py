@@ -8,11 +8,8 @@ def root():
     return  "<h3>hello flask</h3>"
     
 @app.route('/hello')
-def hello():
-    return "hello"
-
 @app.route('/hello/<name>')
-def helloName(name):
+def helloName(name=None):
     return f"hello {name}"
 
 @app.route('/id/<int:name>')
