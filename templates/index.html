@@ -7,6 +7,13 @@
     <title>Flask Blog</title>
 </head>
 <body>
-    <h3>Hello {{MyName}} </h3>
+    <h3>
+        Hello 
+        {% if MyName %}
+            {{ MyName }}
+        {% else %}
+            to everyone 
+        {% endif %}
+    </h3>
 </body>
 </html>
