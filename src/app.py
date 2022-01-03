@@ -6,6 +6,7 @@ from flask import (Flask,
 from forms import SignupForm
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = 'TASOS'
 
 @app.route('/index')
 @app.route('/')
@@ -21,10 +22,10 @@ def signup():
     if request.method == 'POST' and form.validate_on_submit():
         username = form.username.data
         email = form.email.data
-        pasword = form.pasword.data
-        pasword2 = form.pasword2.data
+        password = form.password.data
+        password2 = form.password2.data
 
-        print(username, email, pasword, pasword2)
+        print(username, email, password, password2)
     return render_template('signup.html', form=form)
 
 @app.route('/login/')
