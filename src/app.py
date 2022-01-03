@@ -6,16 +6,11 @@ app = Flask(__name__)
 
 @app.route('/index')
 @app.route('/')
-@app.route('/<name>')
-def root(name=None):
-    return  render_template('index.html', MyName=name)
+def root():
+    return  render_template('index.html')
 
 
-@app.route('/books')
-def books():
-    with open("mybooks.json") as json_file:
-        jdict = json.load(json_file)
-    return render_template('books.html', mybooks=jdict)
+
     
 
 
