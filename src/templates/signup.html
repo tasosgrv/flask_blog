@@ -5,5 +5,47 @@
 {% endblock title %}
 
 {% block content %}
-<H3>SIGNUP PAGE</H3>
+<div class="container login-container">
+    <div class="row">
+        <div class="col-md-6 login-form-1">
+            <h3>Σελίδα Εγγραφής</h3>
+
+            <form action="#" method="post">
+                <div class="mb-3">
+                    <input type="text" name="username" class="form-control" placeholder="username" aria-label="username" aria-describedby="basic-addon1">
+                    <div id="usernameHelp" class="form-text">
+                    Παρακαλώ δώστε username    
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <input type="email" name="email" class="form-control" placeholder="email" aria-label="email" aria-describedby="basic-addon1">
+                    <div id="emailHelp" class="form-text">
+                    Παρακαλώ δώστε email    
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <input type="password" name="password" class="form-control" placeholder="password" aria-label="password" aria-describedby="basic-addon1">
+                    <div id="passwordHelp" class="form-text">
+                    Παρακαλώ δώστε password    
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <input type="password" name="password2" class="form-control" placeholder="repeat password" aria-label="password2" aria-describedby="basic-addon1">
+                    <div id="passwordHelp" class="form-text">
+                    Παρακαλώ επιβεβαιώστε το password    
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">
+                        Αποστολή
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 {% endblock content %}
