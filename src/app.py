@@ -3,6 +3,7 @@ from flask import (Flask,
                     redirect, 
                     url_for,
                     request)
+from forms import SignupForm
 
 app = Flask(__name__)
 
@@ -14,13 +15,17 @@ def root():
 
 @app.route('/signup/', methods=['GET', 'POST'])
 def signup():
-    if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
-        pasword = request.form['pasword']
-        pasword2 = request.form['pasword2']
+
+    form = SignupForm()
+
+    if request.method == 'POST' and form.validate_on_submit():
+        username = form.username.data
+        email = form.email.data
+        pasword = form.pasword.data
+        pasword2 = form.pasword2.data
+
         print(username, email, pasword, pasword2)
-    return render_template('signup.html')
+    return render_template('signup.html', form=form)
 
 @app.route('/login/')
 def login():

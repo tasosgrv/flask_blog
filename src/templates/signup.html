@@ -12,36 +12,71 @@
 
             <form action="#" method="post">
                 <div class="mb-3">
-                    <input type="text" name="username" class="form-control" placeholder="username" aria-label="username" aria-describedby="basic-addon1">
+                   {{form.username.label(class="form-label")}}
+                   {{form.username(class="form-control")}}
                     <div id="usernameHelp" class="form-text">
                     Παρακαλώ δώστε username    
                     </div>
+
+                    {% if form.username.errors %}
+                    <ul class="errors">
+                        {% for error in form.username.errors %}
+                            <li class="alert text-danger">{{error}}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                 </div>
 
                 <div class="mb-3">
-                    <input type="email" name="email" class="form-control" placeholder="email" aria-label="email" aria-describedby="basic-addon1">
-                    <div id="emailHelp" class="form-text">
-                    Παρακαλώ δώστε email    
-                    </div>
-                </div>
+                    {{form.email.label(class="form-label")}}
+                    {{form.email(class="form-control")}}
+                     <div id="emailHelp" class="form-text">
+                     Παρακαλώ δώστε email    
+                     </div>
+ 
+                     {% if form.email.errors %}
+                     <ul class="errors">
+                         {% for error in form.email.errors %}
+                             <li class="alert text-danger">{{error}}</li>
+                         {% endfor %}
+                     </ul>
+                     {% endif %}
+                 </div>
+
+                 <div class="mb-3">
+                    {{form.password.label(class="form-label")}}
+                    {{form.password(class="form-control")}}
+                     <div id="passwordHelp" class="form-text">
+                     Παρακαλώ δώστε password    
+                     </div>
+ 
+                     {% if form.password.errors %}
+                     <ul class="errors">
+                         {% for error in form.password.errors %}
+                             <li class="alert text-danger">{{error}}</li>
+                         {% endfor %}
+                     </ul>
+                     {% endif %}
+                 </div>
+
+                 <div class="mb-3">
+                    {{form.password2.label(class="form-label")}}
+                    {{form.password2(class="form-control")}}
+                     <div id="password2Help" class="form-text">
+                        Παρακαλώ επιβεβαιώστε το password    
+                     </div>
+ 
+                     {% if form.password2.errors %}
+                     <ul class="errors">
+                         {% for error in form.password2.errors %}
+                             <li class="alert text-danger">{{error}}</li>
+                         {% endfor %}
+                     </ul>
+                     {% endif %}
+                 </div>
 
                 <div class="mb-3">
-                    <input type="password" name="password" class="form-control" placeholder="password" aria-label="password" aria-describedby="basic-addon1">
-                    <div id="passwordHelp" class="form-text">
-                    Παρακαλώ δώστε password    
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <input type="password" name="password2" class="form-control" placeholder="repeat password" aria-label="password2" aria-describedby="basic-addon1">
-                    <div id="passwordHelp" class="form-text">
-                    Παρακαλώ επιβεβαιώστε το password    
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">
-                        Αποστολή
-                    </button>
+                    {{ form.submit(class="btn btn-primary") }}
                 </div>
             </form>
 
