@@ -1,15 +1,10 @@
-from flask import (Flask, 
-                    render_template, 
+from flask import (render_template, 
                     redirect, 
                     url_for,
                     request, 
                     flash)
-from forms import NewArticleForm, SignupForm, LoginForm, NewArticleForm
-
-app = Flask(__name__)
-app.config["SECRET_KEY"] = 'fa41efa0758221558203292e6df640971d56'
-app.config["WTF_CSRF_SECRET_KEY"] = '6680d2e8b86b1be39f3f1fd422a7cc075ea1'
-
+from FlaskBlogApp.forms import NewArticleForm, SignupForm, LoginForm, NewArticleForm
+from FlaskBlogApp import app
 
 @app.route('/index')
 @app.route('/')
@@ -61,7 +56,3 @@ def new_article():
 
     return render_template('new_article.html', form=form)
   
-
-
-if __name__=="__main__":
-    app.run(debug=True)
