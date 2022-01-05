@@ -39,7 +39,7 @@ def login():
         password = form.password.data
         print(email, password)
 
-        flash(f"Η είσοδος του χρήστη με email: {email} είναι επιτυχής")
+        flash(f"Η είσοδος του χρήστη με email: {email} είναι επιτυχής", "success")
 
     return render_template('login.html', form=form)
 
