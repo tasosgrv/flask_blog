@@ -2,7 +2,8 @@ from flask import (Flask,
                     render_template, 
                     redirect, 
                     url_for,
-                    request)
+                    request, 
+                    flash)
 from forms import NewArticleForm, SignupForm, LoginForm, NewArticleForm
 
 app = Flask(__name__)
@@ -37,6 +38,8 @@ def login():
         email = form.email.data
         password = form.password.data
         print(email, password)
+
+        flash(f"Η είσοδος του χρήστη με email: {email} είναι επιτυχής")
 
     return render_template('login.html', form=form)
 
