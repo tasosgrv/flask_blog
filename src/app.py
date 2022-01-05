@@ -3,7 +3,7 @@ from flask import (Flask,
                     redirect, 
                     url_for,
                     request)
-from forms import SignupForm, LoginForm
+from forms import NewArticleForm, SignupForm, LoginForm, NewArticleForm
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = 'TASOS'
@@ -32,7 +32,7 @@ def signup():
 def login():
 
     form = LoginForm()
-    
+
     if request.method == 'POST' and form.validate_on_submit():
         email = form.email.data
         password = form.password.data
@@ -44,9 +44,17 @@ def login():
 def logout():
     return redirect(url_for('root'))
 
-@app.route('/new_article/')
+@app.route('/new_article/', methods=['GET', 'POST'])
 def new_article():
-    return render_template('new_article.html')
+
+    form = NewArticleForm()
+    
+    if request.method == 'POST' and form.validate_on_submit():
+        article_title = form.article_title.data
+        article_body = form.article_body.data
+        print(article_title, article_body)
+
+    return render_template('new_article.html', form=form)
   
 
 

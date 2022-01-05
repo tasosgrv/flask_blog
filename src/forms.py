@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
 
 
@@ -33,3 +33,15 @@ class LoginForm(FlaskForm):
                             validators=[DataRequired(message="Αυτό το πεδίο δεν μπορεί να ειναι κενό")]
                             )
     submit = SubmitField('Είσοδος')
+
+class NewArticleForm(FlaskForm):
+
+    article_title = StringField(label='Τίτλος', 
+                        validators=[DataRequired(message="Αυτό το πεδίο δεν μπορεί να ειναι κενό"), 
+                                    Length(min=3, max=50, message="O τίτλος πρέπει να είναι απο 3-50 χαρακτηρες")]
+                        )
+    article_body = TextAreaField(label='Αρθρο', 
+                            validators=[DataRequired(message="Αυτό το πεδίο δεν μπορεί να ειναι κενό"), 
+                                        Length(min=5, message="Το άρθρπ πρέπει να είναι τουλάχιστον 5 χαρακτηρες")]
+                            )
+    submit = SubmitField('Ανάρτηση')
