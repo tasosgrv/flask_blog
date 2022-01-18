@@ -12,7 +12,7 @@ Flask Home
             <h3>{{article.article_title}}</h3>
             <h6>{{article.author.username}} | {{article.date_created.strftime('%d-%m-%Y')}}</h6>
             <p>
-                {{article.article_body | trancate(50)}}
+                {{article.article_body | truncate(50)}}
             </p>
         {% endfor %}
 
