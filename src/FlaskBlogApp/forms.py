@@ -1,7 +1,8 @@
+from xml.dom import ValidationErr
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField
-from wtforms.validators import DataRequired, Email, Length, EqualTo
-
+from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
+from FlaskBlogApp.models import User
 
 class SignupForm(FlaskForm):
     username = StringField(label='Username', 
@@ -23,6 +24,16 @@ class SignupForm(FlaskForm):
                             )
     submit = SubmitField('Εγγραφή')
 
+    
+    def validate_username(self, username):
+        if User.query.filter_by(username=username.data).first(): 
+            raise ValidationError('Το username που δώσατε υπάρχει ήδη')
+
+    def validate_email(self, email):
+       if User.query.filter_by(email=email.data).first(): 
+            raise ValidationError('Το email που δώσατε υπάρχει ήδη')
+
+
 class LoginForm(FlaskForm):
 
     email = StringField(label='email', 
@@ -33,6 +44,8 @@ class LoginForm(FlaskForm):
                             validators=[DataRequired(message="Αυτό το πεδίο δεν μπορεί να ειναι κενό")]
                             )
     submit = SubmitField('Είσοδος')
+
+
 
 class NewArticleForm(FlaskForm):
 
