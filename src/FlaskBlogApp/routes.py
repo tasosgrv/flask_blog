@@ -4,7 +4,7 @@ from flask import (render_template,
                     request, 
                     flash)
 from FlaskBlogApp.forms import NewArticleForm, SignupForm, LoginForm, NewArticleForm
-from FlaskBlogApp import app, db
+from FlaskBlogApp import app, db, bcrypt
 from FlaskBlogApp.models import User, Article
 
 
@@ -26,7 +26,16 @@ def signup():
         password = form.password.data
         password2 = form.password2.data
 
-        print(username, email, password, password2)
+        encrypted_password= bcrypt.generate_password_hash(password).decode('utf-8')
+        user = User(username=username, email=email, password=encrypted_password)
+        db.session.add(user)
+        db.session.commit()
+
+        flash(f"O λογαρισμός για τον χρήστη <b>{username}</b> δημιουργήθηκε με επιτυχία ", "success")
+
+        return redirect(url_for('login'))
+    else:
+        pass
     return render_template('signup.html', form=form)
 
 @app.route('/login/', methods=['GET', 'POST'])
