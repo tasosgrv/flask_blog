@@ -1,7 +1,3 @@
-from email.policy import default
-from enum import unique
-
-from sqlalchemy import ForeignKey
 from FlaskBlogApp import db
 from datetime import datetime
 
@@ -12,19 +8,19 @@ class User(db.Model):
     email = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(36), nullable=False)
     profile_image = db.Column(db.String(30), default="default_profile_image.jpg")
-    articles = db.relasionship('Article', 'author', lazy=True)
+    articles = db.relationship('Article', backref='author', lazy=True)
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return f"{self.username} {self.email}"
 
 
 class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     article_title = db.Column(db.String(50), nullable=False)
-    article_body = db.Column(db.String(250), nullable=False)
+    article_body = db.Column(db.Text(), nullable=False)
     article_image = db.Column(db.String(30), default="default_article_image.jpg")
-    date_created = db.Column(db.datetime, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return f"{self.date_created} {self.article_title}"
