@@ -5,6 +5,19 @@ Flask Home
 {% endblock title %}
 
 {% block content %}
-<h3>HOME PAGE</h3>
+
+    {% if articles %}
+
+        {% for article in articles %}
+            <h3>{{article.article_title}}</h3>
+            <h6>{{article.author.username}} | {{article.date_created.strftime('%d-%m-%Y')}}</h6>
+            <p>
+                {{article.article_body | trancate(50)}}
+            </p>
+        {% endfor %}
+
+    {% else %}
+            <h3>Δεν υπάρχουν ακόμα άρθρα</h3>
+    {% endif %}
 {% endblock content %}
 
