@@ -1,9 +1,9 @@
-from flask import (render_template, 
+from flask import (current_app, render_template, 
                     redirect, 
                     url_for,
                     request, 
                     flash)
-from FlaskBlogApp.forms import NewArticleForm, SignupForm, LoginForm, NewArticleForm
+from FlaskBlogApp.forms import NewArticleForm, SignupForm, LoginForm, NewArticleForm, AccountUpdateForm
 from FlaskBlogApp import app, db, bcrypt
 from FlaskBlogApp.models import User, Article
 
@@ -92,4 +92,21 @@ def new_article():
         print(article_title, article_body)
 
     return render_template('new_article.html', form=form)
+  
+@app.route('/account/', methods=['GET', 'POST'])
+@login_required
+def account():
+
+    form = AccountUpdateForm(username=current_user.username, email=current_user.email)
+
+    if request.method == 'POST' and form.validate_on_submit():
+
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+
+        db.session.commit()
+        flash(f"Η ενημέρωση των στοιχείων του χρήστη <b>{current_user.username}</b> έγινε με επιτυχία","success")
+        return redirect(url_for('root'))
+
+    return render_template('account_update.html', form=form)
   

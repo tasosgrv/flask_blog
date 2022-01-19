@@ -1,4 +1,4 @@
-from xml.dom import ValidationErr
+from flask_login import current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField, BooleanField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
@@ -59,3 +59,26 @@ class NewArticleForm(FlaskForm):
                                         Length(min=5, message="Το άρθρπ πρέπει να είναι τουλάχιστον 5 χαρακτηρες")]
                             )
     submit = SubmitField('Ανάρτηση')
+
+
+class AccountUpdateForm(FlaskForm):
+    username = StringField(label='Username', 
+                            validators=[DataRequired(message="Αυτό το πεδίο δεν μπορεί να ειναι κενό"), 
+                                        Length(min=3, max=15, message="To username πρέπει να είναι απο 3-15 χαρακτηρες")]
+                            )
+    email = StringField(label='email', 
+                        validators=[DataRequired(message="Αυτό το πεδίο δεν μπορεί να ειναι κενό"),
+                                    Email(message="Παρακαλώ εισάγετε ένα σωστό email")]
+                        )
+    submit = SubmitField('Επιβεβείωση αλλαγών')
+
+    
+    def validate_username(self, username):
+        if username.data != current_user.username:
+            if User.query.filter_by(username=username.data).first(): 
+                raise ValidationError('Το username που δώσατε υπάρχει ήδη')
+
+    def validate_email(self, email):
+        if email.data != current_user.email:
+            if User.query.filter_by(email=email.data).first(): 
+                    raise ValidationError('Το email που δώσατε υπάρχει ήδη')
