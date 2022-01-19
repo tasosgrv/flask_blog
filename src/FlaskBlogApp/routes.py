@@ -7,7 +7,7 @@ from FlaskBlogApp.forms import NewArticleForm, SignupForm, LoginForm, NewArticle
 from FlaskBlogApp import app, db, bcrypt
 from FlaskBlogApp.models import User, Article
 
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 
 
 @app.route('/index')
@@ -52,11 +52,16 @@ def login():
         email = form.email.data
         password = form.password.data
         
+        
         user = User.query.filter_by(email=email).first()
         if user and bcrypt.check_password_hash(user.password, password):
+            
+            login_user(user, remember=form.remember_me.data)
+            next_link = request.args.get('next')
 
-            login_user(user)
             flash(f"Η είσοδος του χρήστη με email: {email} είναι επιτυχής", "success")
+            if next_link:
+                return redirect(next_link)
             return redirect(url_for('root'))
         else:
             flash(f"H σύνδεση παρακαλώ δοκιμάστε ξανά", "danger")
@@ -73,6 +78,7 @@ def logout():
     return redirect(url_for('root'))
 
 @app.route('/new_article/', methods=['GET', 'POST'])
+@login_required
 def new_article():
 
     form = NewArticleForm()
