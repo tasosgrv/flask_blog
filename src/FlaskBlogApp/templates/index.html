@@ -6,6 +6,10 @@ Flask Home
 
 {% block content %}
 
+{% if current_user.is_authenticated %}
+    {{current_user.username}}
+{% endif %}
+
     {% if articles %}
 
         {% for article in articles %}
@@ -17,7 +21,7 @@ Flask Home
         {% endfor %}
 
     {% else %}
-            <h3>Δεν υπάρχουν ακόμα άρθρα</h3>
+            <h3>Δεν υπάρχουν ακόμα  άρθρα</h3>
     {% endif %}
 {% endblock content %}
 
