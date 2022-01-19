@@ -87,9 +87,13 @@ def new_article():
     form = NewArticleForm()
     
     if request.method == 'POST' and form.validate_on_submit():
-        article_title = form.article_title.data
-        article_body = form.article_body.data
-        print(article_title, article_body)
+        
+        article = Article(article_title=form.article_title.data, article_body=form.article_body.data, author=current_user)
+
+        db.session.add(article)
+        db.session.commit()
+        flash(f"O χρήστης <b>{current_user.username}</b> προσθεσε ενα άρθρο με επιτυχία","success")
+        return redirect(url_for('root'))
 
     return render_template('new_article.html', form=form)
   

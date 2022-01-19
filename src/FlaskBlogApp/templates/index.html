@@ -6,17 +6,18 @@ Flask Home
 
 {% block content %}
 
-{% if current_user.is_authenticated %}
-    {{current_user.username}}
-{% endif %}
 
     {% if articles %}
 
         {% for article in articles %}
             <h3>{{article.article_title}}</h3>
-            <h6>{{article.author.username}} | {{article.date_created.strftime('%d-%m-%Y')}}</h6>
+            <h6>
+                <img class="rounded-circle navbar-profile-image" src="{{ url_for('static', filename='/images/profile_images/'+current_user.profile_image) }}" alt="profile image" data-bs-toggle="
+                tooltip" >  
+                {{article.author.username}} | {{article.date_created.strftime('%d-%m-%Y')}}
+            </h6>
             <p>
-                {{article.article_body | truncate(50)}}
+                {{article.article_body | truncate(50) | safe}}
             </p>
         {% endfor %}
 
