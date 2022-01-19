@@ -20,6 +20,9 @@ def root():
 @app.route('/signup/', methods=['GET', 'POST'])
 def signup():
 
+    if current_user.is_authenticated:
+        return redirect(url_for('root'))
+
     form = SignupForm()
 
     if request.method == 'POST' and form.validate_on_submit():
