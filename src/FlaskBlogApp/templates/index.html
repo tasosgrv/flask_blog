@@ -17,6 +17,7 @@ Flask Home
                 {{article.author.username}} | {{article.date_created.strftime('%d-%m-%Y')}}
             </h6>
             <p>
+                <img width=320 height=150 src="{{ url_for('static', filename='/images/article_images/'+article.article_image) }}" alt="article image">  
                 {{article.article_body | truncate(50) | safe}}
             </p>
         {% endfor %}

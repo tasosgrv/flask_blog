@@ -96,7 +96,27 @@ def new_article():
         return redirect(url_for('root'))
 
     return render_template('new_article.html', form=form)
-  
+
+
+@app.route('/edit_article/<int:article_id>', methods=['GET', 'POST'])
+@login_required
+def edit_article(article_id):
+
+    article = Article.query.filter_by(id=article_id, author=current_user).first_or_404()
+
+    form = NewArticleForm(article_title=article.article_title, article_body=article.article_body)
+
+    if request.method == 'POST' and form.validate_on_submit():
+        article.article_title = form.article_title.data
+        article.article_body = form.article_body.data
+        db.session.commit()
+
+        flash(f"Το άρθρο με τίτλο {article.article_title} επεξεργάστηκε  με επιτυχία", "success")
+        return redirect(url_for('root'))
+
+    return render_template('new_article.html', form=form)
+
+
 @app.route('/account/', methods=['GET', 'POST'])
 @login_required
 def account():
