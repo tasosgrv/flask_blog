@@ -12,7 +12,7 @@ Flask Home
         {% for article in articles %}
             <h3>{{article.article_title}}</h3>
             <h6>
-                <img class="rounded-circle navbar-profile-image" src="{{ url_for('static', filename='/images/profile_images/'+current_user.profile_image) }}" alt="profile image" data-bs-toggle="
+                <img class="rounded-circle navbar-profile-image" src="{{ url_for('static', filename='/images/profile_images/'+article.author.profile_image) }}" alt="profile image" data-bs-toggle="
                 tooltip" >  
                 {{article.author.username}} | {{article.date_created.strftime('%d-%m-%Y')}}
             </h6>
@@ -23,7 +23,7 @@ Flask Home
         {% endfor %}
 
     {% else %}
-            <h3>Δεν υπάρχουν ακόμα  άρθρα</h3>
+            <h3>Δεν υπάρχουν ακόμα άρθρα</h3>
     {% endif %}
 {% endblock content %}
 
