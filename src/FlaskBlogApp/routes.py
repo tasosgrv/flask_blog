@@ -13,7 +13,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 @app.route('/index')
 @app.route('/')
 def root():
-    articles = Article.query.all()
+    articles = Article.query.order_by(Article.date_created.desc())
     return  render_template('index.html', articles=articles)
 
 

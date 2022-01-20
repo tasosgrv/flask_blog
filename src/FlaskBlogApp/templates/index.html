@@ -39,7 +39,7 @@ Flask Home
 
                 <div class="col-10">
                     <p class="main-article-partial-text">  
-                        {{article.article_body | truncate(50) | safe}}
+                        {{article.article_body | truncate(255) | safe}}
                     </p>
                 </div>
 
