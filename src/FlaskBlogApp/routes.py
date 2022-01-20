@@ -98,6 +98,14 @@ def new_article():
     return render_template('new_article.html', form=form)
 
 
+@app.route('/full_article/<int:article_id>')
+def full_article(article_id):
+
+    article = Article.query.get_or_404(article_id)
+    return render_template('full_article.html', article=article)
+
+
+
 @app.route('/edit_article/<int:article_id>', methods=['GET', 'POST'])
 @login_required
 def edit_article(article_id):

@@ -1,0 +1,47 @@
+{% extends "base.html"%}
+
+{% block title %}
+    {{article.article_title}}
+{% endblock title %}
+
+{% block content %}
+
+<main role="main" class="container">
+
+    {% if article %}
+        <div class="row my-3 p-3 bg-body rounded shadow-sm">
+
+            <div class="main-article-category col col-12">
+                <div class="main-article-title">
+                    
+                        {{article.article_title}}
+                    
+                </div>
+
+                <div class="article-info">
+
+                        <img class="rounded-circle navbar-profile-image" src="{{ url_for('static', filename='/images/profile_images/'+article.author.profile_image) }}" alt="profile image" data-bs-toggle="
+                        tooltip" >  
+
+                    <a class="author-name" href="#">
+                        {{article.author.username}}
+                    </a>
+                    <small class="article-date">{{article.date_created.strftime('%d-%m-%Y')}}</small>
+                </div>
+            </div>
+
+            <div class="col-12">
+                {% if article.article_image and article.article_image != 'default_article_image.jpg ' %}
+                    <img class="image-responsive a_image full-article-image" src="{{ url_for('static', filename='/images/article_images/'+article.article_image) }}" alt="article image">
+                {% endif %}
+
+
+                <p class="main-article-partial-text">  
+                    {{article.article_body | safe}}
+                </p>
+            </div>
+
+        </div>
+    {% endif %}
+</main>
+{% endblock content %}

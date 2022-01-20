@@ -14,7 +14,7 @@ Flask Home
 
                 <div class="main-article-category col col-12">
                     <div class="main-article-title">
-                        <a class="article-title" href="#">
+                        <a class="article-title" href="{{url_for('full_article', article_id=article.id)}}">
                             {{article.article_title}}
                         </a>
                     </div>

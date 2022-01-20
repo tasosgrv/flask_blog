@@ -33,6 +33,13 @@ body {
 	margin-bottom: 1.2em	;
 }
 
+.full-article-image{
+	float: left; 
+	padding: 0px 10px 0px 0px;
+	width: 320px;
+	height: 240px;
+}
+
 footer{
 	color: #fff;
 	background-color: #343a40;
