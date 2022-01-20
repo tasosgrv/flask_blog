@@ -95,7 +95,7 @@ def new_article():
         flash(f"O χρήστης <b>{current_user.username}</b> προσθεσε ενα άρθρο με επιτυχία","success")
         return redirect(url_for('root'))
 
-    return render_template('new_article.html', form=form)
+    return render_template('new_article.html', form=form, page_title="Νέο Άρθρο")
 
 
 @app.route('/full_article/<int:article_id>')
@@ -122,7 +122,26 @@ def edit_article(article_id):
         flash(f"Το άρθρο με τίτλο {article.article_title} επεξεργάστηκε  με επιτυχία", "success")
         return redirect(url_for('root'))
 
-    return render_template('new_article.html', form=form)
+    return render_template('new_article.html', form=form, page_title="Eπεξεργασία Άρθρου")
+
+
+@app.route('/delete_article/<int:article_id>', methods=['GET', 'POST'])
+@login_required
+def delete_article(article_id):
+
+    article = Article.query.filter_by(id=article_id, author=current_user).first_or_404()
+
+    if not article:
+        flash(flash(f"To άρθρο δεν βρέθηκε","danger"))
+    else:
+        db.session.delete(article)
+        db.session.commit()
+        flash(f"To άρθρο με τίτλο <b>{article.article_title}</b> διαγράφτηκε","success")
+    
+    return redirect(url_for('root'))
+
+
+
 
 
 @app.route('/account/', methods=['GET', 'POST'])
