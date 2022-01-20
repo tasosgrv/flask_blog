@@ -10,16 +10,40 @@ Flask Home
     {% if articles %}
 
         {% for article in articles %}
-            <h3>{{article.article_title}}</h3>
-            <h6>
-                <img class="rounded-circle navbar-profile-image" src="{{ url_for('static', filename='/images/profile_images/'+article.author.profile_image) }}" alt="profile image" data-bs-toggle="
-                tooltip" >  
-                {{article.author.username}} | {{article.date_created.strftime('%d-%m-%Y')}}
-            </h6>
-            <p>
-                <img width=320 height=150 src="{{ url_for('static', filename='/images/article_images/'+article.article_image) }}" alt="article image">  
-                {{article.article_body | truncate(50) | safe}}
-            </p>
+            <div class="row my-3 p-3 bg-body rounded shadow-sm">
+
+                <div class="main-article-category col col-12">
+                    <div class="main-article-title">
+                        <a class="article-title" href="#">
+                            {{article.article_title}}
+                        </a>
+                    </div>
+    
+                    <div class="article-info">
+    
+                            <img class="rounded-circle navbar-profile-image" src="{{ url_for('static', filename='/images/profile_images/'+article.author.profile_image) }}" alt="profile image" data-bs-toggle="
+                            tooltip" >  
+    
+                        <a class="author-name" href="#">
+                            {{article.author.username}}
+                        </a>
+                        <small class="article-date">{{article.date_created.strftime('%d-%m-%Y')}}</small>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    {% if article.article_image and article.article_image != 'default_article_image.jpg ' %}
+                        <img class="image-responsive a_image" width=210 height=120 src="{{ url_for('static', filename='/images/article_images/'+article.article_image) }}" alt="article image">
+                    {% endif %}
+                </div>
+
+                <div class="col-10">
+                    <p class="main-article-partial-text">  
+                        {{article.article_body | truncate(50) | safe}}
+                    </p>
+                </div>
+
+            </div>
         {% endfor %}
 
     {% else %}
