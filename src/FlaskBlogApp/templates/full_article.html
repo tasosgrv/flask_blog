@@ -20,10 +20,10 @@
 
                 <div class="article-info">
 
-                        <img class="rounded-circle navbar-profile-image" src="{{ url_for('static', filename='/images/profile_images/'+article.author.profile_image) }}" alt="profile image" data-bs-toggle="
+                        <img class="rounded-circle profile-icon-article" src="{{ url_for('static', filename='/images/profile_images/'+article.author.profile_image) }}" alt="profile image" data-bs-toggle="
                         tooltip" >  
 
-                    <a class="author-name" href="#">
+                    <a class="author-name" href="{{ url_for('profile', profile_id=article.author.id) }}">
                         {{article.author.username}}
                     </a>
                     <small class="article-date">{{article.date_created.strftime('%d-%m-%Y')}}</small>

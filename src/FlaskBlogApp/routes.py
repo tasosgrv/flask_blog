@@ -144,9 +144,9 @@ def delete_article(article_id):
 
 
 
-@app.route('/account/', methods=['GET', 'POST'])
+@app.route('/edit_profile/', methods=['GET', 'POST'])
 @login_required
-def account():
+def edit_profile():
 
     form = AccountUpdateForm(username=current_user.username, email=current_user.email)
 
@@ -159,5 +159,12 @@ def account():
         flash(f"Η ενημέρωση των στοιχείων του χρήστη <b>{current_user.username}</b> έγινε με επιτυχία","success")
         return redirect(url_for('root'))
 
-    return render_template('account_update.html', form=form)
+    return render_template('edit_profile.html', form=form)
+  
+@app.route('/profile/<int:profile_id>')
+def profile(profile_id):
+
+    user = User.query.filter_by(id=profile_id).first_or_404()
+    articles = Article.query.filter_by(user_id=profile_id).order_by(Article.date_created.desc())
+    return render_template('profile.html', profile_user=user, articles=articles)
   
