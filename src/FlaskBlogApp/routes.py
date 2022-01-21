@@ -1,8 +1,10 @@
+from fileinput import filename
 from flask import (current_app, render_template, 
                     redirect, 
                     url_for,
                     request, 
-                    flash)
+                    flash,
+                    abort)
 from FlaskBlogApp.forms import NewArticleForm, SignupForm, LoginForm, NewArticleForm, AccountUpdateForm
 from FlaskBlogApp import app, db, bcrypt
 from FlaskBlogApp.models import User, Article
@@ -18,7 +20,10 @@ def image_save(image, where, size): #size is a tuple (width, height)
     
     image_filename = random_filename + image_extension
 
-    image_path = os.path.join(app.root_path, 'static/images/', where, image_filename)
+    try:
+        image_path = os.path.join(app.root_path, 'static/images/', where, image_filename)
+    except:
+        abort(415)
 
     img = Image.open(image)
     img.thumbnail(size)
@@ -170,9 +175,15 @@ def edit_profile():
 
         current_user.username = form.username.data
         current_user.email = form.email.data
+        
+        if form.profile_image.data:
+            
+            current_image_name = User.query.filter_by(id=current_user).first() 
+            os.remove(url_for('static', filename='images/profile_images/'+current_image_name))
+            
 
-        image_file = image_save(form.profile_image.data, 'profile_images', (240, 240))
-        current_user.profile_image = image_file
+            image_file = image_save(form.profile_image.data, 'profile_images', (240, 240))
+            current_user.profile_image = image_file
 
         db.session.commit()
         flash(f"Η ενημέρωση των στοιχείων του χρήστη <b>{current_user.username}</b> έγινε με επιτυχία","success")
