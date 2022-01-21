@@ -8,7 +8,23 @@ from FlaskBlogApp import app, db, bcrypt
 from FlaskBlogApp.models import User, Article
 
 from flask_login import login_user, logout_user, current_user, login_required
+import secrets, os
+from PIL import Image
 
+
+def image_save(image, where, size): #size is a tuple (width, height)
+    random_filename = secrets.token_hex(12)
+    image_extension = os.path.splitext(image.filename)[1]
+    
+    image_filename = random_filename + image_extension
+
+    image_path = os.path.join(app.root_path, 'static/images/', where, image_filename)
+
+    img = Image.open(image)
+    img.thumbnail(size)
+    img.save(image_path)
+
+    return image_filename
 
 @app.route('/index')
 @app.route('/')
@@ -154,6 +170,9 @@ def edit_profile():
 
         current_user.username = form.username.data
         current_user.email = form.email.data
+
+        image_file = image_save(form.profile_image.data, 'profile_images', (240, 240))
+        current_user.profile_image = image_file
 
         db.session.commit()
         flash(f"Η ενημέρωση των στοιχείων του χρήστη <b>{current_user.username}</b> έγινε με επιτυχία","success")

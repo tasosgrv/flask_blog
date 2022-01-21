@@ -32,13 +32,13 @@ Flask Home
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-2 col-sm-auto">
                         {% if article.article_image and article.article_image != 'default_article_image.jpg ' %}
                             <img class="image-responsive a_image" width=210 height=120 src="{{ url_for('static', filename='/images/article_images/'+article.article_image) }}" alt="article image">
                         {% endif %}
                     </div>
     
-                    <div class="col-md-10">
+                    <div class="col-sm-auto">
                         <p class="main-article-partial-text">  
                             {{article.article_body | truncate(255) | safe}}
                         </p>
