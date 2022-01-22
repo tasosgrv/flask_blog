@@ -1,4 +1,5 @@
 from fileinput import filename
+from pydoc import pager
 from typing import Final
 from flask import (current_app, render_template, 
                     redirect, 
@@ -35,7 +36,8 @@ def image_save(image, where, size): #size is a tuple (width, height)
 @app.route('/index')
 @app.route('/')
 def root():
-    articles = Article.query.order_by(Article.date_created.desc())
+    page = request.args.get('page', 1, type=int)
+    articles = Article.query.order_by(Article.date_created.desc()).paginate(per_page=5, page=page)
     return  render_template('index.html', articles=articles)
 
 
@@ -228,7 +230,9 @@ def edit_profile():
 @app.route('/profile/<int:profile_id>')
 def profile(profile_id):
 
+    page = request.args.get('page', 1, type=int)
+
     user = User.query.filter_by(id=profile_id).first_or_404()
-    articles = Article.query.filter_by(user_id=profile_id).order_by(Article.date_created.desc())
+    articles = Article.query.filter_by(user_id=profile_id).order_by(Article.date_created.desc()).paginate(per_page=5, page=page)
     return render_template('profile.html', profile_user=user, articles=articles)
   
