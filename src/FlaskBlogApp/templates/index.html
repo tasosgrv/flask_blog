@@ -34,7 +34,7 @@ Flask Home
                 <div class="row">
                     <div class="col-2 col-sm-auto">
                         {% if article.article_image and article.article_image != 'default_article_image.jpg ' %}
-                            <img class="image-responsive a_image" width=320 height=220 src="{{ url_for('static', filename='/images/article_images/'+article.article_image) }}" alt="article image">
+                            <img class="img-fluid a_image" width=320 height=220 src="{{ url_for('static', filename='/images/article_images/'+article.article_image) }}" alt="article image">
                         {% endif %}
                     </div>
     

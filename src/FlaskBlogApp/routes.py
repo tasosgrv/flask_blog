@@ -236,3 +236,14 @@ def profile(profile_id):
     articles = Article.query.filter_by(user_id=profile_id).order_by(Article.date_created.desc()).paginate(per_page=5, page=page)
     return render_template('profile.html', profile_user=user, articles=articles)
   
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('errors/404.html'), 404
+
+@app.errorhandler(415)
+def unsupported_media_type(e):
+    # note that we set the 415 status explicitly
+    return render_template('errors/415.html'), 415

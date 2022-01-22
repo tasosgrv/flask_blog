@@ -53,8 +53,7 @@ body {
 .full-article-image{
 	float: left; 
 	padding: 0px 10px 0px 0px;
-	width: 640px;
-	height: 460	px;
+	width: auto;
 }
 
 footer{
@@ -75,4 +74,12 @@ footer{
 
 .row{
 	margin-top: 20px;
+}
+
+.error-message{
+	font-size: 3em;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	color: red;
 }

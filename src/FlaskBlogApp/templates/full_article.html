@@ -39,7 +39,7 @@
 
             <div class="col-12">
                 {% if article.article_image and article.article_image != 'default_article_image.jpg ' %}
-                    <img class="image-responsive a_image full-article-image" src="{{ url_for('static', filename='/images/article_images/'+article.article_image) }}" alt="article image">
+                    <img class="img-fluid full-article-image" src="{{ url_for('static', filename='/images/article_images/'+article.article_image) }}" alt="article image">
                 {% endif %}
 
 
