@@ -1,4 +1,5 @@
 from fileinput import filename
+from typing import Final
 from flask import (current_app, render_template, 
                     redirect, 
                     url_for,
@@ -150,7 +151,11 @@ def edit_article(article_id):
         if form.article_image.data:
 
             if article.article_image!='default_article_image.jpg':
-                os.remove(os.path.join(app.root_path, 'static/images/article_images',article.article_image))
+
+                try:
+                    os.remove(os.path.join(app.root_path, 'static/images/article_images',article.article_image))
+                except FileNotFoundError:
+                    pass
 
             try:
                 image_file = image_save(form.article_image.data, 'article_images', (640, 360))
@@ -202,8 +207,11 @@ def edit_profile():
         if form.profile_image.data:
             
             if current_user.profile_image!='default_profile_image.jpg':
-                os.remove(os.path.join(app.root_path, 'static/images/profile_images', current_user.profile_image))
-            
+                try:
+                    os.remove(os.path.join(app.root_path, 'static/images/profile_images', current_user.profile_image))
+                except FileNotFoundError:
+                    pass
+
             try:
                 image_file = image_save(form.profile_image.data, 'profile_images', (240, 240))
             except:
