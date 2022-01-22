@@ -109,7 +109,15 @@ def new_article():
     
     if request.method == 'POST' and form.validate_on_submit():
         
-        article = Article(article_title=form.article_title.data, article_body=form.article_body.data, author=current_user)
+        if form.article_image.data:
+            try:
+                image_file = image_save(form.article_image.data, 'article_images', (640, 360))
+            except:
+                abort(415)
+
+            article = Article(article_title=form.article_title.data, article_body=form.article_body.data, author=current_user, article_image=image_file)
+        else:
+            article = Article(article_title=form.article_title.data, article_body=form.article_body.data, author=current_user)
 
         db.session.add(article)
         db.session.commit()
@@ -138,6 +146,21 @@ def edit_article(article_id):
     if request.method == 'POST' and form.validate_on_submit():
         article.article_title = form.article_title.data
         article.article_body = form.article_body.data
+
+        if form.article_image.data:
+
+            if article.article_image!='default_article_image.jpg':
+                os.remove(os.path.join(app.root_path, 'static/images/article_images',article.article_image))
+
+            try:
+                image_file = image_save(form.article_image.data, 'article_images', (640, 360))
+            except:
+                abort(415)
+
+            article.article_image=image_file
+
+
+
         db.session.commit()
 
         flash(f"Το άρθρο με τίτλο {article.article_title} επεξεργάστηκε  με επιτυχία", "success")
@@ -178,11 +201,14 @@ def edit_profile():
         
         if form.profile_image.data:
             
-            current_image_name = User.query.filter_by(id=current_user).first() 
-            os.remove(url_for('static', filename='images/profile_images/'+current_image_name))
+            if current_user.profile_image!='default_profile_image.jpg':
+                os.remove(os.path.join(app.root_path, 'static/images/profile_images', current_user.profile_image))
             
+            try:
+                image_file = image_save(form.profile_image.data, 'profile_images', (240, 240))
+            except:
+                abort(415)
 
-            image_file = image_save(form.profile_image.data, 'profile_images', (240, 240))
             current_user.profile_image = image_file
 
         db.session.commit()

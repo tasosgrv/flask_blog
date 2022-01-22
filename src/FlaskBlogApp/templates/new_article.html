@@ -10,7 +10,7 @@
         <div class="col-md-6 login-form-1">
             <h3>{{page_title}}</h3>
 
-            <form action="#" method="post">
+            <form action="#" method="post" enctype="multipart/form-data">
                 {{ form.csrf_token }}
 
                 <div class="mb-3">
@@ -44,6 +44,23 @@
                      </ul>
                      {% endif %}
                  </div>
+
+                 <div class="mb-3">
+                    {{ form.article_image.label(class="form-label") }}
+                    {{ form.article_image(class="form-control") }}
+                     <div id="emailHelp" class="form-text">
+                     Ανεβάστε μία εικόνα για το άρθρο σας   
+                     </div>
+ 
+                     {% if form.article_image.errors %}
+                     <ul class="errors">
+                         {% for error in form.article_image.errors %}
+                             <li class="alert text-danger">{{error}}</li>
+                         {% endfor %}
+                     </ul>
+                     {% endif %}
+                 </div>
+
 
                  <div class="mb-3">
                     {{ form.submit(class="btn btn-primary") }}

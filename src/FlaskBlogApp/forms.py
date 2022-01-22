@@ -71,6 +71,12 @@ class NewArticleForm(FlaskForm):
                             validators=[DataRequired(message="Αυτό το πεδίο δεν μπορεί να ειναι κενό"), 
                                         Length(min=5, message="Το άρθρπ πρέπει να είναι τουλάχιστον 5 χαρακτηρες")]
                             )
+    article_image = FileField(label="Εικόνα άρθρου",
+                              validators=[Optional(strip_whitespace=True),
+                                       FileAllowed(['jpg', 'jpeg', 'png'], 'Επιτρέοπνται μόνο αρχεία με κατάληξη .jpg .jpeg .png'),
+                                       maxImageSize(max_size=2)
+                                      ]
+                            )
     submit = SubmitField('Ανάρτηση')
 
 
