@@ -1,0 +1,85 @@
+body {
+	background: rgba(217, 226, 231, 0.5);
+}
+
+.container{
+	margin-top: 20px;
+}
+
+
+.profile-page-image{
+	width: 240px;
+	height: 240px;
+}
+
+.profile-icon-navbar{
+	width: 30px;
+	height: 30px;
+}
+
+.profile-icon-article{
+	width: 20px;
+	height: 20px;
+}
+
+
+.main-article-title{
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.article-title, .article-title:hover {
+	color: black;
+	text-decoration:none;
+}
+
+.main-article-partial-text,.main-article-full-text{
+	font-size: 1.2em;
+	/*font-weight: bold;*/
+}
+
+.main-article-category,.author-name:hover{
+	color: rgba(0, 0, 0, 0.4);
+}
+
+.main-article-category:hover,.main-article-title:hover,.author-name{
+	text-decoration: none;
+}
+
+.main-article-category{
+	margin-bottom: 1.2em	;
+}
+
+.full-article-image{
+	float: left; 
+	padding: 0px 10px 0px 0px;
+	width: auto;
+}
+
+footer{
+	color: #fff;
+	background-color: #343a40;
+}
+
+.litems,.mlink{
+	text-decoration: none;
+	/*color: #f8f9fa;*/
+	color: rgba(255,255,255,.90)!important;
+	
+}
+.litems:hover{
+	/*color: white;*/
+	color: rgba(255,255,255,10)!important;
+}
+
+.row{
+	margin-top: 20px;
+}
+
+.error-message{
+	font-size: 3em;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	color: red;
+}
